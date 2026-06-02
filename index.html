@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <title>Faro — The Classic Card Game</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="title">FARO</h1>
+    <div class="bankroll">
+      <span class="bankroll-label">Bank</span>
+      <span class="bankroll-value" id="bankroll">1000</span>
+    </div>
+  </header>
+
+  <main class="table">
+    <!-- Dealing box: soda, and the current turn's loser / winner cards -->
+    <section class="dealing-box" aria-label="Dealing box">
+      <div class="box-card">
+        <span class="box-card-label">Soda</span>
+        <div class="card-slot" id="soda-slot"></div>
+      </div>
+      <div class="turn-cards">
+        <div class="box-card lose">
+          <span class="box-card-label">Loser</span>
+          <div class="card-slot" id="loser-slot"></div>
+        </div>
+        <div class="box-card win">
+          <span class="box-card-label">Winner</span>
+          <div class="card-slot" id="winner-slot"></div>
+        </div>
+      </div>
+      <div class="box-meta">
+        <span class="remaining-label">Cards left</span>
+        <span class="remaining-value" id="remaining">51</span>
+      </div>
+    </section>
+
+    <!-- Betting layout: traditional Faro shape (6 + 1 + 6) -->
+    <section class="layout" aria-label="Betting layout">
+      <div class="layout-grid" id="layout-grid"></div>
+      <p class="layout-hint" id="layout-hint">Tap a card to place your chip.</p>
+    </section>
+
+    <!-- Chip + copper controls -->
+    <section class="bet-controls">
+      <div class="chips" id="chips" role="group" aria-label="Chip value"></div>
+      <button class="btn copper-btn" id="copper-btn" type="button" aria-pressed="false">
+        <span class="copper-token-mini"></span> Copper mode
+      </button>
+    </section>
+
+    <!-- Call the turn (only when 3 cards remain) -->
+    <section class="call-turn hidden" id="call-turn" aria-label="Call the turn">
+      <h2>Call the Turn — pays 4:1</h2>
+      <p class="call-turn-hint">Predict the order of the last two cards.</p>
+      <div class="call-turn-options" id="call-turn-options"></div>
+      <div class="call-turn-actions">
+        <button class="btn primary" id="call-turn-submit" type="button" disabled>Place call (<span id="call-turn-amount">0</span>)</button>
+        <button class="btn" id="call-turn-skip" type="button">Skip</button>
+      </div>
+    </section>
+
+    <!-- Action buttons -->
+    <section class="actions">
+      <button class="btn primary" id="deal-btn" type="button">Deal turn</button>
+      <button class="btn" id="clear-btn" type="button">Clear bets</button>
+      <button class="btn" id="new-game-btn" type="button">New game</button>
+    </section>
+
+    <!-- Case keeper -->
+    <section class="case-keeper" aria-label="Case keeper">
+      <h2 class="panel-title">Case Keeper</h2>
+      <div class="case-grid" id="case-grid"></div>
+    </section>
+
+    <!-- Message log -->
+    <section class="log-panel" aria-label="Game log">
+      <h2 class="panel-title">Table Talk</h2>
+      <ul class="log" id="log"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="js/ui.js"></script>
+</body>
+</html>
