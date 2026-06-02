@@ -13,7 +13,9 @@
   --lose: #ef6b6b;
   --copper: #b87333;
   --radius: 10px;
-  --card-w: clamp(40px, 12vw, 58px); /* shared card width: dealing box + layout */
+  --card-w: clamp(40px, 12vw, 58px); /* dealing box card width */
+  --lay-card-w: clamp(22px, min(11vw, 3.8vh), 48px); /* betting layout (fallback) */
+  --lay-card-w: clamp(22px, min(11vw, 3.8dvh), 48px); /* betting layout: width- & height-aware so 6 rows fit */
 }
 
 html, body {
@@ -101,7 +103,7 @@ h1, h2 { margin: 0; }
 .card-face.red { color: var(--red); }
 .card-face .corner {
   position: absolute;
-  font-size: clamp(0.55rem, 2.6vw, 0.8rem);
+  font-size: clamp(0.4rem, 2.2vw, 0.8rem);
   font-weight: bold;
   line-height: 0.95;
   text-align: center;
@@ -114,7 +116,7 @@ h1, h2 { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1.1rem, 7vw, 2rem);
+  font-size: clamp(0.75rem, 5.5vw, 2rem);
 }
 .card-face.dealt { animation: flip-in 0.35s ease; }
 @keyframes flip-in {
@@ -168,15 +170,15 @@ h1, h2 { margin: 0; }
 /* ---------- Layout board ---------- */
 .layout-grid {
   display: grid;
-  grid-template-columns: var(--card-w) 1fr var(--card-w);
+  grid-template-columns: var(--lay-card-w) 1fr var(--lay-card-w);
   column-gap: clamp(6px, 2.4vw, 12px);
-  row-gap: 5px;
+  row-gap: 4px;
   align-items: start;
   justify-content: center;
 }
 .lay-card {
   position: relative;
-  width: var(--card-w);
+  width: var(--lay-card-w);
   padding: 0;
   border: none;
   background: transparent;
@@ -386,6 +388,29 @@ h1, h2 { margin: 0; }
 .log-line.lose { color: var(--lose); }
 .log-line.split { color: #f0b34a; }
 .log-line.muted { color: rgba(243,239,230,0.6); }
+
+/* ---------- Small screens: compact whole stack to fit one viewport ---------- */
+@media (max-width: 480px), (max-height: 760px) {
+  :root { --card-w: clamp(30px, 9vw, 40px); } /* shrink dealing-box cards too */
+  .table { gap: 6px; padding: 6px; }
+  .layout-grid { row-gap: 3px; }
+  .layout-hint { margin-top: 2px; font-size: 0.68rem; }
+  .dealing-box { padding: 7px; gap: 10px; }
+  .box-card-label, .remaining-label { font-size: 0.55rem; }
+  .remaining-value { font-size: 1.1rem; }
+  .bet-controls { gap: 6px; }
+  .chip { width: 40px; height: 40px; font-size: 0.72rem; }
+  .btn { padding: 8px 12px; min-height: 40px; font-size: 0.85rem; }
+  .actions { gap: 6px; }
+  .case-keeper { padding: 6px; }
+  .case-grid { gap: 3px; }
+  .case-cell { padding: 2px 1px; }
+  .case-rank { font-size: 0.72rem; }
+  .case-dots i { width: 5px; height: 5px; }
+  .panel-title { font-size: 0.65rem; margin-bottom: 3px; }
+  .log { max-height: 36px; }
+  .log-line { padding: 2px 0; font-size: 0.72rem; }
+}
 
 /* ---------- Larger screens ---------- */
 @media (min-width: 560px) {
